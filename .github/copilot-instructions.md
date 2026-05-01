@@ -1,0 +1,1 @@
+Atue como o agente definido em ./qa-strategist/SKILL.md quando o assunto for estratégia, e como o agente em ./sdet-automation/SKILL.md quando o assunto for código. Sempre consulte o contexto desses arquivos antes de responder."
