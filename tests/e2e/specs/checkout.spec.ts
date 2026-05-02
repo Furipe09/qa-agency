@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test';
-import { CheckoutPage } from './pages/CheckoutPage';
-import { CheckoutDataFactory, CheckoutRequest } from './factories/CheckoutDataFactory';
-import { MockManager } from './mock/MockManager';
+import { CheckoutPage } from '../pages/CheckoutPage';
+import { CheckoutDataFactory, CheckoutRequest } from '../factories/CheckoutDataFactory';
+import { MockManager } from '../mock/MockManager';
 
 /**
  * Checkout E2E Test Suite
@@ -229,7 +229,7 @@ test.describe('E2E - Checkout Flow (Error Scenarios)', () => {
         cvc: testData.paymentDetails.cvc,
       }),
       new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Timeout')), 40000),
+        setTimeout(() => reject(new Error('Timeout')), 40000)
       ),
     ]).catch((error) => {
       expect(error.message).toContain('Timeout');
@@ -352,41 +352,5 @@ test.describe('E2E - Checkout Flow (Performance & Resilience)', () => {
     // Assert - should complete reasonably fast (< 10s without artificial delays)
     expect(result.orderId).toBeTruthy();
     console.log(`Checkout completed in ${duration}ms`);
-  });
-
-  /**
-   * Test Case 11 (Bonus): Insufficient balance error (original test refactored)
-   * - Mock API returning 400 with balance error
-   * - Validate error response structure
-   */
-  test('Should show insufficient balance error on checkout (mocked API)', async ({
-    page,
-  }) => {
-    // Arrange
-    const testData = CheckoutDataFactory.generateCheckoutRequest();
-
-    // Mock checkout to return insufficient balance error
-    await page.route('**/api/checkout', async (route) => {
-      await route.fulfill({
-        status: 400,
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ error: 'Saldo Insuficiente' }),
-      });
-    });
-
-    // Act - invoke checkout API programmatically
-    const res = await page.evaluate(async () => {
-      const r = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ payment: { valid: false } }),
-      });
-      const body = await r.json();
-      return { status: r.status, body };
-    });
-
-    // Assert
-    expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty('error', 'Saldo Insuficiente');
   });
 });

@@ -25,4 +25,9 @@
 
 ## 6. ✅ Critérios de Aceite
 - Cobertura mínima de caminhos felizes.
+- Casos de teste detalhados (passos/inputs/outputs) em arquivos separados.
+- configure templates de CI para rodar as suites sugeridas.
+- gerar arquivos de teste automatizados (pytest/LocalStack + exemplos de mocks)
+- Cobertura de testes de 99%.
+- os testes devem ser gerados na (tests).
 - Tratamento de erros para falhas de rede/integração.

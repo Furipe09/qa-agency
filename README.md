@@ -44,10 +44,18 @@ Este framework organiza uma agência de QA baseada em agentes de IA especializad
    - Apenas testes de uma pasta: pytest tests/api/
 
 ## 🟡 Guia de Uso: Exemplos de PromptsPara obter o melhor dos agentes, utilize os modelos de comando abaixo:
-- Para o Strategist: "Analise o arquivo arquitetura.xml e gere a matriz RBT. Identifique quais lambdas de integração entre o Gateway e o DynamoDB oferecem maior risco de timeout."
-- Para o SDET: "Com base na matriz RBT gerada, implemente o teste de 'Carrinho de Compras' usando Playwright. Use o Page Object Model e garanta que a API de estoque seja mockada."
+- Para o Strategist: "Perfil: Você é o QA Strategist da Agência. Sua especialidade é Shift-Left e RBT.
+Contexto: Analise o arquivo #examples/arquitetura-ecommerce.xml usando as diretrizes em #qa-strategist/SKILL.md.
+Tarefa: Gere um plano de testes detalhado seguindo a estrutura de #templates/test-strategy-template.md.
+Saída: Crie um novo arquivo chamado test-strategy-1.md na pasta templates/. Não sobrescreva o template original."
+- Para o SDET: "Perfil: Você é o SDET Automation da Agência. Sua especialidade é Playwright, Pytest e Clean Code.
+Contexto: Utilize o plano estratégico gerado em #templates/test-strategy-1.md e a skill em #sdet-automation/SKILL.md.
+Tarefa: Implemente os scripts de automação. Configure os mocks necessários conforme descrito no plano.
+Saída: Crie os arquivos na pasta tests/e2e/. Utilize o arquivo #playwright.config.ts para garantir que o reporter Allure esteja configurado."
 
-## 🔵 Matriz de RastreabilidadeEsta matriz garante que nenhum agente ignore os documentos fundamentais durante a automação. Ela serve como um checklist de "quem lê o quê".
+## 🔵 Matriz de Rastreabilidade 
+
+Esta matriz garante que nenhum agente ignore os documentos fundamentais durante a automação. Ela serve como um checklist de "quem lê o quê".
 
 Origem (Input)	Processado por	Destino (Output)	Objetivo
 <code>arquitetura.xml</code>	QA Strategist	<code>test-strategy-template.md</code>	Identificar fluxos e riscos.

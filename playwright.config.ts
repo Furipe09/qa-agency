@@ -7,12 +7,17 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [
-    ['html'],
-    ['allure-playwright'],
+    ['html', { outputFolder: 'playwright-report' }],
+    ['allure-playwright', { outputFolder: 'allure-results' }],
   ],
   baseURL: 'http://localhost:3000',
+  timeout: 30000, // 30s timeout for dynamic waits
+  navigationTimeout: 30000,
+  actionTimeout: 30000,
   use: {
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
   projects: [
     {
